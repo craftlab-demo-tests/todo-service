@@ -1,0 +1,107 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "todo-service",
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/todo" : {
+      "get" : {
+        "parameters" : [ {
+          "explode" : true,
+          "in" : "query",
+          "name" : "userid",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TodoList"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "NotFound"
+          }
+        }
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Todo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "created"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Todo" : {
+        "example" : {
+          "id" : 6,
+          "title" : "title",
+          "userid" : 1
+        },
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "userid" : {
+            "type" : "integer"
+          }
+        },
+        "required" : [ "title", "userid" ],
+        "type" : "object"
+      },
+      "TodoList" : {
+        "example" : {
+          "count" : 0,
+          "todos" : [ {
+            "id" : 6,
+            "title" : "title",
+            "userid" : 1
+          }, {
+            "id" : 6,
+            "title" : "title",
+            "userid" : 1
+          } ]
+        },
+        "properties" : {
+          "count" : {
+            "type" : "integer"
+          },
+          "todos" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Todo"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      }
+    }
+  }
+}
