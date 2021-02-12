@@ -1,0 +1,53 @@
+openapi: "3.0.2"
+info:
+  title: todo-service
+  version: "1.0"
+paths:
+  /todo:
+    get:
+      parameters:
+        - name: userid
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TodoList"
+        "404":
+          description: NotFound
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+      responses:
+        "201":
+          description: created
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        userid:
+          type: integer
+      required:
+        - "title"
+        - "userid"
+    TodoList:
+      type: object
+      properties:
+        count:
+          type: integer
+        todos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Todo"
