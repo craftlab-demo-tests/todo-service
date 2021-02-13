@@ -97,7 +97,7 @@ namespace Org.OpenAPITools
                 services
                     .AddSwaggerGenNewtonsoftSupport();
 
-                services.AddScoped<ITodoService, TodoService>();
+                services.AddSingleton<ITodoService, TodoService>();
         }
 
         /// <summary>

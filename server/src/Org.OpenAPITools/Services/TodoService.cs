@@ -28,6 +28,7 @@ namespace Org.OpenAPITools.Services
 
         private int GetNewId()
         {
+            if (todos.Count == 0) return 0;
             return todos.Max(kvp => kvp.Key) + 1;
         }
     }
