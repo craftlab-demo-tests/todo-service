@@ -14,9 +14,9 @@
           "explode" : true,
           "in" : "query",
           "name" : "userid",
-          "required" : false,
+          "required" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "integer"
           },
           "style" : "form"
         } ],

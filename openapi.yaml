@@ -9,7 +9,8 @@ paths:
         - name: userid
           in: query
           schema:
-            type: string
+            type: integer
+          required: true
       responses:
         "200":
           description: OK

@@ -6,7 +6,7 @@ namespace Org.OpenAPITools.Services
 {
     public interface ITodoService
     {
-        Todo GetTodoByUserId(string userid);
+        Todo GetTodoByUserId(int userid);
         Todo AddTodo(Todo todo);
     }
 
@@ -21,7 +21,7 @@ namespace Org.OpenAPITools.Services
             return todo;
         }
 
-        public Todo GetTodoByUserId(string userid)
+        public Todo GetTodoByUserId(int userid)
         {
             return todos.FirstOrDefault(kvp => kvp.Value.Userid.Equals(userid)).Value;
         }

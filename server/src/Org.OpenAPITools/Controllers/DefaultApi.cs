@@ -45,7 +45,7 @@ namespace Org.OpenAPITools.Controllers
         [ValidateModelState]
         [SwaggerOperation("TodoGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(TodoList), description: "OK")]
-        public virtual IActionResult TodoGet([FromQuery] string userid)
+        public virtual IActionResult TodoGet([FromQuery][Required()]int userid)
         {
             var todo = todoService.GetTodoByUserId(userid);
             if (todo == null)
