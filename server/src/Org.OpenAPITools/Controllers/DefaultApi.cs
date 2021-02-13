@@ -18,15 +18,22 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Attributes;
 using Org.OpenAPITools.Models;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools.Controllers
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
     [ApiController]
     public class DefaultApiController : ControllerBase
-    { 
+    {
+        private ITodoService todoService;
+
+        public DefaultApiController(ITodoService todoService) : base()
+        {
+            this.todoService = todoService;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -38,21 +45,14 @@ namespace Org.OpenAPITools.Controllers
         [ValidateModelState]
         [SwaggerOperation("TodoGet")]
         [SwaggerResponse(statusCode: 200, type: typeof(TodoList), description: "OK")]
-        public virtual IActionResult TodoGet([FromQuery]string userid)
-        { 
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(TodoList));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404);
-            string exampleJson = null;
-            exampleJson = "{\n  \"count\" : 0,\n  \"todos\" : [ {\n    \"id\" : 6,\n    \"title\" : \"title\",\n    \"userid\" : 1\n  }, {\n    \"id\" : 6,\n    \"title\" : \"title\",\n    \"userid\" : 1\n  } ]\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<TodoList>(exampleJson)
-            : default(TodoList);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
+        public virtual IActionResult TodoGet([FromQuery] string userid)
+        {
+            var todo = todoService.GetTodoByUserId(userid);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            return Ok(todo);
         }
 
         /// <summary>
@@ -64,13 +64,10 @@ namespace Org.OpenAPITools.Controllers
         [Route("/todo")]
         [ValidateModelState]
         [SwaggerOperation("TodoPost")]
-        public virtual IActionResult TodoPost([FromBody]Todo todo)
-        { 
-
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201);
-
-            throw new NotImplementedException();
+        public virtual IActionResult TodoPost([FromBody] Todo todo)
+        {
+            var created = todoService.AddTodo(todo);
+            return Created($"/todo/{todo.Id}", created);
         }
     }
 }

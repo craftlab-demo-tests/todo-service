@@ -23,6 +23,7 @@ using Newtonsoft.Json.Serialization;
 using Org.OpenAPITools.Authentication;
 using Org.OpenAPITools.Filters;
 using Org.OpenAPITools.OpenApi;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools
 {
@@ -95,6 +96,8 @@ namespace Org.OpenAPITools
                 });
                 services
                     .AddSwaggerGenNewtonsoftSupport();
+
+                services.AddScoped<ITodoService, TodoService>();
         }
 
         /// <summary>

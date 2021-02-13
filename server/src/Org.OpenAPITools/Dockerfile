@@ -11,11 +11,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 
 # Copy the code into the container
 WORKDIR /src
-COPY ["src/Org.OpenAPITools/Org.OpenAPITools.csproj", "Org.OpenAPITools/"]
+COPY ["Org.OpenAPITools.csproj", "Org.OpenAPITools/"]
 
 # NuGet restore
 RUN dotnet restore "Org.OpenAPITools/Org.OpenAPITools.csproj"
-COPY ["src/Org.OpenAPITools/", "Org.OpenAPITools/"]
+COPY ["./", "Org.OpenAPITools/"]
 
 # Build the API
 WORKDIR "Org.OpenAPITools"

@@ -7,7 +7,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>Org.OpenAPITools</AssemblyName>
     <PackageId>Org.OpenAPITools</PackageId>
-    <UserSecretsId>4a84bcd1-571b-40a3-be49-7f6b16c576a2</UserSecretsId>
+    <UserSecretsId>6f684423-da81-40aa-b0a5-bc7870916e80</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
