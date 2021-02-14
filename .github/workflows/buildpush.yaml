@@ -1,0 +1,28 @@
+# This is a basic workflow to help you get started with Actions
+
+name: buildpush
+on: push
+jobs:
+  build:
+    env:
+      PROJECT_NAME: todoservice
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.HUB_DOCKER_NAME }}
+          password: ${{ secrets.HUB_DOCKER_PASSWORD }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./server/src/Org.OpenAPITools/
+          file: ./server/src/Org.OpenAPITools/Dockerfile
+          push: true
+          tags: "${{secrets.HUB_DOCKER_NAME}}/${{env.PROJECT_NAME}}:${{github.sha}}"
