@@ -25,4 +25,6 @@ jobs:
           context: ./server/src/Org.OpenAPITools/
           file: ./server/src/Org.OpenAPITools/Dockerfile
           push: true
-          tags: "${{secrets.HUB_DOCKER_NAME}}/${{env.PROJECT_NAME}}:${{github.sha}}"
+          tags: |
+            "${{secrets.HUB_DOCKER_NAME}}/${{env.PROJECT_NAME}}:${{github.sha}}"
+            "${{secrets.HUB_DOCKER_NAME}}/${{env.PROJECT_NAME}}:latest"
